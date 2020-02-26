@@ -76,6 +76,7 @@ function print_usage() {
   ${BLUE}all${NONE}:     clean all and build
   ${BLUE}partial${NONE}: incremental build
   ${BLUE}lint${NONE}:    check code style
+  ${BLUE}cmake${NONE}:    run cmake
   ${BLUE}clean${NONE}:   clean all
   ${BLUE}test${NONE}:    run unit tests
   ${BLUE}help${NONE}:    print usage
@@ -98,6 +99,9 @@ function main() {
     lint)
       run_lint
       ;;
+    cmake)
+      run_cmake
+      ;;
     clean)
       clean
       ;;
@@ -114,4 +118,3 @@ function main() {
 }
 
 main $@
-

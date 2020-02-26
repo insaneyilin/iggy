@@ -1,4 +1,5 @@
 // Copyright 2020 insaneyilin All Rights Reserved.
+
 #ifndef IGGY_COMMON_UTIL_MACROS_H_
 #define IGGY_COMMON_UTIL_MACROS_H_
 

@@ -1,0 +1,8 @@
+// Copyright 2020 insaneyilin All Rights Reserved.
+
+#ifndef IGGY_COMMON_FACTORY_AUTOREG_FACTORY_H_
+#define IGGY_COMMON_FACTORY_AUTOREG_FACTORY_H_
+
+
+
+#endif  // IGGY_COMMON_FACTORY_AUTOREG_FACTORY_H_
