@@ -1,2 +1,3 @@
 # iggy
-IGGY -- insaneguy's general purpose library.
+
+**i**nsane**g**uy's **g**eneral purpose librar**y**.

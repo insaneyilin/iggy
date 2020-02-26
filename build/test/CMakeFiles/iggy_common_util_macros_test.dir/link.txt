@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++11  -rdynamic CMakeFiles/iggy_common_util_macros_test.dir/iggy_common_util_macros_test.cc.o  -o iggy_common_util_macros_test -lgtest -lgtest_main -lpthread 

@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+..//iggy/common/util/macros.h
+
+/home/guiyilin/lab_codes/iggy/test/iggy_common_util_macros_test.cc
+cmath
+-
+string
+-
+gtest/gtest.h
+/home/guiyilin/lab_codes/iggy/test/gtest/gtest.h
+iggy/common/util/macros.h
+/home/guiyilin/lab_codes/iggy/test/iggy/common/util/macros.h
+
