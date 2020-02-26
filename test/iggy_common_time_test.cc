@@ -27,7 +27,7 @@ TEST(TimeTest, PerfTimerTest) {
 TEST(TimeTest, PerfMacrosTest) {
   IGGY_PERF_BLOCK_START();
   foo();
-  EXPECT_NEAR(IGGY_PERF_BLOCK_END("foo"), 123.f, 1e-6);
+  EXPECT_NEAR(IGGY_PERF_BLOCK_END("foo"), 123.f, 10.f);
 }
 
 }  // namespace time
