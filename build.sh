@@ -3,7 +3,11 @@
 set -e
 
 BASEDIR=$(dirname $0)
-JOBS=$(grep -c ^processor /proc/cpuinfo)
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  JOBS=$(grep -c ^processor /proc/cpuinfo)
+else
+  JOBS=4
+fi
 MAKEFLAGS=" -j${JOBS} -l${JOBS}"
 CMAKE_OPTIONS=""
 GOOGLE_CPPLINT_PY=$BASEDIR/scripts/cpplint.py
