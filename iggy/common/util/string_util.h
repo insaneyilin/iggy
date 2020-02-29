@@ -16,10 +16,10 @@ namespace util {
 class StringUtil {
  public:
   enum class TrimType {
-    TRIM_TYPE_BOTH = 1,
-    TRIM_TYPE_LEFT = 2,
-    TRIM_TYPE_RIGHT = 3,
-    TRIM_TYPE_COUNT = 4
+    TRIM_TYPE_BOTH = 0,
+    TRIM_TYPE_LEFT = 1,
+    TRIM_TYPE_RIGHT = 2,
+    TRIM_TYPE_COUNT = 3
   };
 
   static std::string TrimType2Str(TrimType type) {
