@@ -16,7 +16,7 @@ float ClockTimer::End(const std::string &msg) {
   float elapsed_time =
       std::chrono::duration_cast<std::chrono::milliseconds>(diff).count();
   std::cerr << "TIMER " << msg << " elapsed_time: " << elapsed_time
-      << " ms" << std::endl;
+      << " ms.\n";
   start_time_ = end_time_;
   return elapsed_time;
 }

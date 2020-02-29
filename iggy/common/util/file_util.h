@@ -41,7 +41,6 @@ class FileUtil {
   static int GetFileSize(const std::string &path);
   static bool GetFileList(const std::string &path, const std::string &ext,
       std::vector<std::string> *filelist);
-  static bool IsFile(const std::string &path);
   static bool IsDir(const std::string &path);
 
   static bool SplitBaseName(const std::string &path,

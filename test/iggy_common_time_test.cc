@@ -21,7 +21,7 @@ TEST(TimeTest, PerfTimerTest) {
   ClockTimer timer;
   timer.Start();
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
-  EXPECT_NEAR(timer.End("test1"), 100.f, 1e-6);
+  EXPECT_NEAR(timer.End("test1"), 100.f, 5.f);
 }
 
 TEST(TimeTest, PerfMacrosTest) {
