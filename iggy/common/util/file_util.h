@@ -38,14 +38,13 @@ class FileUtil {
   static bool Exists(const std::string &path);
 
   // get file size in bytes
-  static int GetFileSize(const std::string &path);
+  static int64_t GetFileSize(const std::string &path);
+  static bool GetFileContent(const std::string &path, std::string *content);
   static bool GetFileList(const std::string &path, const std::string &ext,
       std::vector<std::string> *filelist);
   static bool IsDir(const std::string &path);
 
   static bool SplitBaseName(const std::string &path,
-      std::pair<std::string, std::string> *result);
-  static bool SplitExtension(const std::string &path,
       std::pair<std::string, std::string> *result);
 
   template <typename... Args>
