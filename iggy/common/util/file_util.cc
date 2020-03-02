@@ -1,18 +1,7 @@
 // Copyright 2020 insaneyilin All Rights Reserved.
+
 #include "iggy/common/util/file_util.h"
 
-#include <dirent.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <glob.h>
-#include <string.h>
-#include <limits.h>
-#include <stddef.h>
-#include <stdlib.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
 #include <fstream>
 #include <sstream>
 

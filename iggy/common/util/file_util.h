@@ -1,6 +1,20 @@
 // Copyright 2020 insaneyilin All Rights Reserved.
+
 #ifndef IGGY_COMMON_UTIL_FILE_UTIL_H_
 #define IGGY_COMMON_UTIL_FILE_UTIL_H_
+
+#include <dirent.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <glob.h>
+#include <string.h>
+#include <limits.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include <functional>
 #include <string>
@@ -49,17 +63,12 @@ class FileUtil {
 
   template <typename... Args>
   static bool Walk(const std::string &path,
-      std::function<bool(Args &&...)> visit, Args &&... args);
+      std::function<bool(const std::string&, Args &&...)> visit,
+      Args &&... args);
 
  private:
   DISALLOW_IMPLICIT_CONSTRUCTORS(FileUtil);
 };
-
-template <typename... Args>
-bool FileUtil::Walk(const std::string &path,
-    std::function<bool(Args &&...)> visit, Args &&... args) {
-  return true;
-}
 
 }  // namespace util
 }  // namespace common

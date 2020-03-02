@@ -1,5 +1,7 @@
 // Copyright 2020 insaneyilin All Rights Reserved.
 
+#include <stdarg.h>
+
 #include <cmath>
 #include <string>
 #include <vector>
