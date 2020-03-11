@@ -30,6 +30,14 @@ class ObjectPool {
   template <typename... Args>
   void Extend(const size_t num, InitFunc init_func, Args &&... args);
 
+  size_t Capacity() const {
+    return capacity_;
+  }
+
+  size_t FreeQueueSize() const {
+    return queue_.size();
+  }
+
  private:
   size_t capacity_ = 0;
   std::queue<ObjectType*> queue_;
@@ -84,6 +92,7 @@ void ObjectPool<ObjectType>::Extend(const size_t num, InitFunc init_func,
     extended_cache_.push_back(ptr);
     queue_.push(ptr);
   }
+  capacity_ += num;
 }
 
 }  // namespace base
