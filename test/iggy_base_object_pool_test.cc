@@ -2,10 +2,12 @@
 
 #include <cmath>
 #include <string>
+#include <vector>
 
 #include "gtest/gtest.h"
 
 #include "iggy/base/object_pool.h"
+#include "iggy/common/time/perf_timer.h"
 
 namespace iggy {
 namespace base {
@@ -19,6 +21,17 @@ struct TestNode {
 
   int value = 0;
   bool inited = false;
+};
+
+struct BigNode {
+  BigNode() {
+    for (int i = 0; i < 100000; ++i) {
+      data.push_back(1.0 * i);
+    }
+  }
+  ~BigNode() {}
+
+  std::vector<double> data;
 };
 
 TEST(ObjectPoolTest, CreateTest) {
@@ -76,6 +89,27 @@ TEST(ObjectPoolTest, CapacityTest) {
   }
   EXPECT_EQ(pool1.Capacity(), 6);
   EXPECT_EQ(pool1.FreeQueueSize(), 6);
+}
+
+TEST(ObjectPoolTest, PerfTest) {
+  const size_t capacity = 100;
+  ObjectPool<BigNode> pool1(capacity, [](BigNode*) {});
+  EXPECT_EQ(pool1.Capacity(), 100);
+  EXPECT_EQ(pool1.FreeQueueSize(), 100);
+
+  std::vector<std::shared_ptr<BigNode> > obj_vec(100);
+  common::time::ClockTimer timer;
+  timer.Start();
+  for (int i = 0; i < 100; ++i) {
+    obj_vec[i] = pool1.GetObjectSharedPtr();
+  }
+  auto elapsed_time_use_pool = timer.End("use pool");
+
+  for (int i = 0; i < 100; ++i) {
+    obj_vec[i].reset(new BigNode);
+  }
+  auto elapsed_time_use_new = timer.End("use new");
+  EXPECT_LT(elapsed_time_use_pool, elapsed_time_use_new);
 }
 
 }  // namespace base

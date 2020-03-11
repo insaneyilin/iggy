@@ -15,9 +15,8 @@ namespace base {
 
 template <typename ObjectType>
 class ObjectPool {
- public:
   using InitFunc = std::function<void(ObjectType *)>;
-
+ public:
   template <typename... Args>
   explicit ObjectPool(size_t capacity, InitFunc init_func, Args &&... args);
 

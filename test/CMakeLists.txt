@@ -3,6 +3,7 @@ project(iggy_test)
 add_executable(iggy_base_object_pool_test
     iggy_base_object_pool_test.cc)
 target_link_libraries(iggy_base_object_pool_test
+    iggy_common_time
     gtest gtest_main pthread)
 
 add_executable(iggy_common_util_macros_test
