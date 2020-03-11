@@ -135,7 +135,6 @@ bool FileUtil::IsDir(const std::string &path) {
   return stat(path.c_str(), &info) == 0 && (info.st_mode & S_IFDIR);
 }
 
-// TODO(yilin)
 bool FileUtil::SplitBaseName(const std::string &path,
     std::pair<std::string, std::string> *result) {
   if (!FileUtil::Exists(path)) {

@@ -61,11 +61,6 @@ class FileUtil {
   static bool SplitBaseName(const std::string &path,
       std::pair<std::string, std::string> *result);
 
-  template <typename... Args>
-  static bool Walk(const std::string &path,
-      std::function<bool(const std::string&, Args &&...)> visit,
-      Args &&... args);
-
  private:
   DISALLOW_IMPLICIT_CONSTRUCTORS(FileUtil);
 };
