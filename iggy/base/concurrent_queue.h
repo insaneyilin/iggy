@@ -19,19 +19,21 @@ class ConcurrentQueue {
   ConcurrentQueue() = default;
   virtual ~ConcurrentQueue() = default;
 
-  virtual void Push(const T &element) {
+  virtual bool Push(const T &element) {
     std::lock_guard<std::mutex> lock(mutex_);
     queue_.emplace(element);
     cv_.notify_one();
+    return true;
   }
 
-  virtual void WaitPop(T *element) {
+  virtual bool WaitPop(T *element) {
     std::unique_lock<std::mutex> lock(mutex_);
     cv_.wait(lock, [this]() {
       return !queue_.empty();
     });
     *element = std::move(queue_.front());
     queue_.pop();
+    return true;
   }
 
   virtual bool Pop(T *element) {
@@ -54,11 +56,12 @@ class ConcurrentQueue {
     return queue_.empty();
   }
 
- private:
+ protected:
   std::mutex mutex_;
   std::queue<T> queue_;
   std::condition_variable cv_;
 
+ private:
   DISALLOW_MOVE(ConcurrentQueue);
   DISALLOW_COPY_AND_ASSIGN(ConcurrentQueue);
 };

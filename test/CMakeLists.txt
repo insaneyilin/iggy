@@ -12,6 +12,12 @@ target_link_libraries(iggy_base_concurrent_queue_test
     iggy_common_time
     gtest gtest_main pthread)
 
+add_executable(iggy_base_bounded_concurrent_queue_test
+    iggy_base_bounded_concurrent_queue_test.cc)
+target_link_libraries(iggy_base_bounded_concurrent_queue_test
+    iggy_common_time
+    gtest gtest_main pthread)
+
 add_executable(iggy_common_util_macros_test
     iggy_common_util_macros_test.cc)
 target_link_libraries(iggy_common_util_macros_test
@@ -53,6 +59,9 @@ add_test(NAME iggy_base_object_pool_test
 add_test(NAME iggy_base_concurrent_queue_test
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMAND ${CMAKE_CURRENT_BINARY_DIR}/iggy_base_concurrent_queue_test)
+add_test(NAME iggy_base_bounded_concurrent_queue_test
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/iggy_base_bounded_concurrent_queue_test)
 add_test(NAME iggy_common_util_macros_test
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMAND ${CMAKE_CURRENT_BINARY_DIR}/iggy_common_util_macros_test)
