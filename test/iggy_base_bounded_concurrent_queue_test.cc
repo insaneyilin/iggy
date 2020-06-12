@@ -93,10 +93,10 @@ TEST(BoundedConcurrentQueueTest, BreakAllWaitTest) {
     EXPECT_FALSE(q2.WaitPush(3));
   });
   std::this_thread::sleep_for(std::chrono::milliseconds(500));
-  q1.BreakAllWait();
+  q2.BreakAllWait();
   int val = 0;
   EXPECT_TRUE(q2.Pop(&val));
-  EXPECT_EQ(val, 2);
+  EXPECT_EQ(val, 1);
   t2.join();
 }
 
