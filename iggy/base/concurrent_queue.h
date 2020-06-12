@@ -31,6 +31,9 @@ class ConcurrentQueue {
     cv_.wait(lock, [this]() {
       return !queue_.empty();
     });
+    if (break_all_wait_) {
+      return false;
+    }
     *element = std::move(queue_.front());
     queue_.pop();
     return true;
@@ -56,10 +59,16 @@ class ConcurrentQueue {
     return queue_.empty();
   }
 
+  virtual void BreakAllWait() {
+    break_all_wait_ = true;
+    cv_.notify_all();
+  }
+
  protected:
   std::mutex mutex_;
   std::queue<T> queue_;
   std::condition_variable cv_;
+  bool break_all_wait_ = false;
 
  private:
   DISALLOW_MOVE(ConcurrentQueue);

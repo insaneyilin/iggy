@@ -70,5 +70,35 @@ TEST(BoundedConcurrentQueueTest, WaitPushTest) {
   t.join();
 }
 
+TEST(BoundedConcurrentQueueTest, BreakAllWaitTest) {
+  BoundedConcurrentQueue<int> q1(100);
+  q1.Push(10);
+  std::thread t1([&]() {
+    int value = 0;
+    q1.WaitPop(&value);
+    EXPECT_EQ(10, value);
+    EXPECT_FALSE(q1.WaitPop(&value));
+  });
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  q1.BreakAllWait();
+  q1.Push(100);
+  t1.join();
+
+  BoundedConcurrentQueue<int> q2(2);
+  std::thread t2([&]() {
+    q2.WaitPush(1);
+    EXPECT_EQ(q2.Size(), 1);
+    q2.WaitPush(2);
+    EXPECT_EQ(q2.Size(), 2);
+    EXPECT_FALSE(q2.WaitPush(3));
+  });
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
+  q1.BreakAllWait();
+  int val = 0;
+  EXPECT_TRUE(q2.Pop(&val));
+  EXPECT_EQ(val, 2);
+  t2.join();
+}
+
 }  // namespace base
 }  // namespace iggy

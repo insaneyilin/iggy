@@ -27,6 +27,9 @@ class BoundedConcurrentQueue : public ConcurrentQueue<T> {
     cv_full_.wait(lock, [this]() {
       return this->queue_.size() < capacity_;
     });
+    if (this->break_all_wait_) {
+      return false;
+    }
     this->queue_.emplace(element);
     this->cv_.notify_one();
     return true;
@@ -47,6 +50,9 @@ class BoundedConcurrentQueue : public ConcurrentQueue<T> {
     this->cv_.wait(lock, [this]() {
       return !this->queue_.empty();
     });
+    if (this->break_all_wait_) {
+      return false;
+    }
     *element = std::move(this->queue_.front());
     this->queue_.pop();
     cv_full_.notify_one();
@@ -68,7 +74,13 @@ class BoundedConcurrentQueue : public ConcurrentQueue<T> {
     return this->queue_.size() >= capacity_;
   }
 
- private:
+  virtual void BreakAllWait() {
+    this->break_all_wait_ = true;
+    this->cv_.notify_all();
+    this->cv_full_.notify_all();
+  }
+
+ protected:
   std::condition_variable cv_full_;
   const size_t capacity_;
 

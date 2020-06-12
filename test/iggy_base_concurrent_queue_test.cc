@@ -52,6 +52,22 @@ TEST(ConcurrentQueueTest, WaitPopTest) {
   t.join();
 }
 
+TEST(ConcurrentQueueTest, BreakAllWaitTest) {
+  ConcurrentQueue<int> q;
+  EXPECT_TRUE(q.Empty());
+  q.Push(1);
+  std::thread t([&]() {
+    int value = 0;
+    q.WaitPop(&value);
+    EXPECT_EQ(1, value);
+    EXPECT_FALSE(q.WaitPop(&value));
+  });
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  q.BreakAllWait();
+  q.Push(2);
+  t.join();
+}
+
 TEST(ConcurrentQueueTest, MultiThreadTest) {
   ConcurrentQueue<int> q;
   EXPECT_TRUE(q.Empty());
