@@ -6,6 +6,12 @@ target_link_libraries(iggy_base_object_pool_test
     iggy_common_time
     gtest gtest_main pthread)
 
+add_executable(iggy_base_signal_slot_test
+    iggy_base_signal_slot_test.cc)
+target_link_libraries(iggy_base_signal_slot_test
+    iggy_common_time
+    gtest gtest_main pthread)
+
 add_executable(iggy_base_thread_pool_test
     iggy_base_thread_pool_test.cc)
 target_link_libraries(iggy_base_thread_pool_test
@@ -74,6 +80,9 @@ target_link_libraries(iggy_math_util_math_util_test
 add_test(NAME iggy_base_object_pool_test
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMAND ${CMAKE_CURRENT_BINARY_DIR}/iggy_base_object_pool_test)
+add_test(NAME iggy_base_signal_slot_test
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/iggy_base_signal_slot_test)
 add_test(NAME iggy_base_thread_pool_test
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMAND ${CMAKE_CURRENT_BINARY_DIR}/iggy_base_thread_pool_test)
