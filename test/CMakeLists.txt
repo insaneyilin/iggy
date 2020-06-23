@@ -77,6 +77,12 @@ target_link_libraries(iggy_math_util_math_util_test
     iggy_math_util
     gtest gtest_main pthread)
 
+add_executable(iggy_math_util_angle_test
+    iggy_math_util_angle_test.cc)
+target_link_libraries(iggy_math_util_angle_test
+    iggy_math_util
+    gtest gtest_main pthread)
+
 add_executable(iggy_math_util_mean_filter_test
     iggy_math_util_mean_filter_test.cc)
 target_link_libraries(iggy_math_util_mean_filter_test
@@ -122,6 +128,9 @@ add_test(NAME iggy_common_time_test
 add_test(NAME iggy_math_util_math_util_test
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMAND ${CMAKE_CURRENT_BINARY_DIR}/iggy_math_util_math_util_test)
+add_test(NAME iggy_math_util_angle_test
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/iggy_math_util_angle_test)
 add_test(NAME iggy_math_util_mean_filter_test
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMAND ${CMAKE_CURRENT_BINARY_DIR}/iggy_math_util_mean_filter_test)
