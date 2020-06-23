@@ -39,11 +39,13 @@ class Image {
   bool Read(const std::string &filename);
   bool Write(const std::string &filename);
 
+  bool Clear(unsigned int value);
+
  private:
   unsigned char* data_ = nullptr;
   int width_ = 0;
   int height_ = 0;
-  int channels_ = 3;
+  int channels_ = 0;
   int desired_channels_ = 0;
 };
 
