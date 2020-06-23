@@ -50,8 +50,10 @@ function run_build() {
 function run_lint() {
   set +e
   echo -e "\n${BLUE}Run google c++ style checking:${NONE}"
-  find $BASEDIR/ \( -type d -name ".git" -o -type d -name "build" \) -prune -o -print \
-    | grep -e '\.h$' -e '\.hpp$' -e '\.cc$' -e '\.cpp$' -e '\.cxx$' -e '\.cu$' -e '\.cuh$' \
+  find $BASEDIR/ \( -type d -name ".git" -o -type d -name "build" -o -type d \
+    -name "third_party" -o -type d -name "test_data" \) -prune -o -print \
+    | grep -e '\.h$' -e '\.hpp$' -e '\.cc$' -e '\.cpp$' -e '\.cxx$' -e '\.cu$' \
+    -e '\.cuh$' \
     | xargs python $GOOGLE_CPPLINT_PY
 
   if [ $? -ne 0 ]; then
@@ -64,6 +66,7 @@ function run_lint() {
 }
 
 function run_unittest() {
+  cp test_data/* build/test/
   cd build
   make test
   if [ $? -ne 0 ]; then
