@@ -321,4 +321,3 @@ inline std::string KalmanFilter<T, XN, ZN, UN>::DebugString() const {
 }  // namespace iggy
 
 #endif  // IGGY_MATH_ESTIMATION_KALMAN_FILTER_H_
-
