@@ -287,7 +287,7 @@ inline bool KalmanFilter<T, XN, ZN, UN>::Correct(
     return false;
   }
 
-  // innovation / residual
+  // innovation(residual)
   y_ = z - H_ * x_;
   // innovation covariance
   S_ = static_cast<Eigen::Matrix<T, ZN, ZN>>(H_ * P_ * H_.transpose() + R_);
