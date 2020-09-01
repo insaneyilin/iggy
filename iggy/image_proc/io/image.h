@@ -14,6 +14,9 @@ class Image {
  public:
   Image();
   ~Image();
+
+  Image(int width, int height, int channels);
+
   explicit Image(const std::string &filename);
 
   int width() const {
@@ -40,6 +43,7 @@ class Image {
   bool Write(const std::string &filename);
 
   bool Clear(unsigned int value);
+  bool Clear(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
 
  private:
   unsigned char* data_ = nullptr;

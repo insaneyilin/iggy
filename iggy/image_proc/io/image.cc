@@ -38,6 +38,13 @@ Image::~Image() {
   }
 }
 
+Image::Image(int width, int height, int channels) {
+  width_ = width;
+  height_ = height;
+  channels_ = channels;
+  data_ = new unsigned char[width_ * height_ * channels_];
+}
+
 Image::Image(const std::string &filename) {
   if (!Read(filename)) {
     throw std::invalid_argument("invalid image filename");
@@ -84,6 +91,35 @@ bool Image::Clear(unsigned int value) {
     return false;
   }
   std::memset(data_, value, width_ * height_ * channels_);
+  return true;
+}
+
+bool Image::Clear(unsigned int r, unsigned int g, unsigned int b,
+    unsigned int a) {
+  if (!data_) {
+    return false;
+  }
+  if (channels_ != 1 && channels_ != 3 && channels_ != 4) {
+    return false;
+  }
+  for (int i = 0; i < height_; ++i) {
+    for (int j = 0; j < width_; ++j) {
+      const int offset = channels_ * (width_ * i + j);
+      if (channels_ == 1) {
+        data_[offset] = r;
+      } else if (channels_ == 3) {
+        data_[offset] = r;
+        data_[offset + 1] = g;
+        data_[offset + 2] = b;
+      } else if (channels_ == 4) {
+        data_[offset] = r;
+        data_[offset + 1] = g;
+        data_[offset + 2] = b;
+        data_[offset + 3] = a;
+      }
+    }
+  }
+
   return true;
 }
 
