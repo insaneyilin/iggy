@@ -1,5 +1,5 @@
 // Copyright 2020 insaneyilin All Rights Reserved.
-#include "iggy/image_proc/io/image.h"
+#include "iggy/image_proc/base/image.h"
 
 #include <cstring>
 #include <iostream>
@@ -27,7 +27,7 @@
 
 namespace iggy {
 namespace image_proc {
-namespace io {
+namespace base {
 
 Image::Image() {
 }
@@ -123,6 +123,6 @@ bool Image::Clear(unsigned int r, unsigned int g, unsigned int b,
   return true;
 }
 
-}  // namespace io
+}  // namespace base
 }  // namespace image_proc
 }  // namespace iggy

@@ -6,11 +6,11 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "iggy/image_proc/io/image.h"
+#include "iggy/image_proc/base/image.h"
 
 namespace iggy {
 namespace image_proc {
-namespace io {
+namespace base {
 
 TEST(ImageProcIOImage, LoadImage) {
   std::string filename("lena512color.png");
@@ -75,6 +75,6 @@ TEST(ImageProcIOImage, LoadInvalidImage) {
   }
 }
 
-}  // namespace io
+}  // namespace base
 }  // namespace image_proc
 }  // namespace iggy

@@ -1,6 +1,6 @@
 // Copyright 2020 insaneyilin All Rights Reserved.
-#ifndef IGGY_IMAGE_PROC_IO_IMAGE_H_
-#define IGGY_IMAGE_PROC_IO_IMAGE_H_
+#ifndef IGGY_IMAGE_PROC_BASE_IMAGE_H_
+#define IGGY_IMAGE_PROC_BASE_IMAGE_H_
 
 #include <vector>
 #include <memory>
@@ -8,7 +8,7 @@
 
 namespace iggy {
 namespace image_proc {
-namespace io {
+namespace base {
 
 class Image {
  public:
@@ -53,8 +53,8 @@ class Image {
   int desired_channels_ = 0;
 };
 
-}  // namespace io
+}  // namespace base
 }  // namespace image_proc
 }  // namespace iggy
 
-#endif  // IGGY_IMAGE_PROC_IO_IMAGE_H_
+#endif  // IGGY_IMAGE_PROC_BASE_IMAGE_H_

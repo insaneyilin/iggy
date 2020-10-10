@@ -101,10 +101,10 @@ target_link_libraries(iggy_math_estimation_extended_kalman_filter_test
     iggy_math_util
     gtest gtest_main pthread)
 
-add_executable(iggy_image_proc_io_image_test
-    iggy_image_proc_io_image_test.cc)
-target_link_libraries(iggy_image_proc_io_image_test
-    iggy_image_proc_io
+add_executable(iggy_image_proc_base_image_test
+    iggy_image_proc_base_image_test.cc)
+target_link_libraries(iggy_image_proc_base_image_test
+    iggy_image_proc_base
     gtest gtest_main pthread)
 
 add_test(NAME iggy_base_object_pool_test
@@ -158,6 +158,6 @@ add_test(NAME iggy_math_estimation_kalman_filter_test
 add_test(NAME iggy_math_estimation_extended_kalman_filter_test
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMAND ${CMAKE_CURRENT_BINARY_DIR}/iggy_math_estimation_extended_kalman_filter_test)
-add_test(NAME iggy_image_proc_io_image_test
+add_test(NAME iggy_image_proc_base_image_test
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/iggy_image_proc_io_image_test)
+    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/iggy_image_proc_base_image_test)
