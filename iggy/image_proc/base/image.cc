@@ -51,6 +51,23 @@ Image::Image(const std::string &filename) {
   }
 }
 
+void Image::Reset(int width, int height, int channels) {
+  stbi_image_free(data_);
+  width_ = width;
+  height_ = height;
+  channels_ = channels;
+  data_ = new unsigned char[width_ * height_ * channels_];
+}
+
+void Image::CopyFrom(const Image &other) {
+  stbi_image_free(data_);
+  width_ = other.width_;
+  height_ = other.height_;
+  channels_ = other.channels_;
+  data_ = new unsigned char[width_ * height_ * channels_];
+  std::memcpy(data_, other.data(), width_ * height_ * channels_);
+}
+
 bool Image::Read(const std::string &filename) {
   data_ = stbi_load(filename.c_str(),
       &width_, &height_, &channels_, 0);
@@ -118,6 +135,45 @@ bool Image::Clear(unsigned int r, unsigned int g, unsigned int b,
         data_[offset + 3] = a;
       }
     }
+  }
+
+  return true;
+}
+
+bool Image::SetPixel(int x, int y, unsigned int r, unsigned int g,
+                     unsigned int b, unsigned int a) {
+  const int offset = channels_ * (width_ * y + x);
+  if (channels_ == 1) {
+    data_[offset] = r;
+  } else if (channels_ == 3) {
+    data_[offset] = r;
+    data_[offset + 1] = g;
+    data_[offset + 2] = b;
+  } else if (channels_ == 4) {
+    data_[offset] = r;
+    data_[offset + 1] = g;
+    data_[offset + 2] = b;
+    data_[offset + 3] = a;
+  }
+
+  return true;
+}
+
+bool Image::GetPixel(int x, int y,
+                     unsigned int *r, unsigned int *g, unsigned int *b,
+                     unsigned int *a) const {
+  const int offset = channels_ * (width_ * y + x);
+  if (channels_ == 1) {
+    *r = data_[offset];
+  } else if (channels_ == 3) {
+    *r = data_[offset];
+    *g = data_[offset + 1];
+    *b = data_[offset + 2];
+  } else if (channels_ == 4) {
+    *r = data_[offset];
+    *g = data_[offset + 1];
+    *b = data_[offset + 2];
+    *a = data_[offset + 3];
   }
 
   return true;

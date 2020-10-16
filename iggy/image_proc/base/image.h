@@ -14,10 +14,13 @@ class Image {
  public:
   Image();
   ~Image();
-
   Image(int width, int height, int channels);
 
   explicit Image(const std::string &filename);
+
+  void Reset(int width, int height, int channels);
+
+  void CopyFrom(const Image &other);
 
   int width() const {
     return width_;
@@ -44,6 +47,12 @@ class Image {
 
   bool Clear(unsigned int value);
   bool Clear(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
+
+  bool SetPixel(int x, int y,
+                unsigned int r, unsigned int g, unsigned int b, unsigned int a);
+  bool GetPixel(int x, int y,
+                unsigned int *r, unsigned int *g, unsigned int *b,
+                unsigned int *a) const;
 
  private:
   unsigned char* data_ = nullptr;

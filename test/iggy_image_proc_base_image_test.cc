@@ -7,6 +7,7 @@
 #include "gmock/gmock.h"
 
 #include "iggy/image_proc/base/image.h"
+#include "iggy/image_proc/image_transform/image_transform.h"
 
 namespace iggy {
 namespace image_proc {
@@ -19,6 +20,11 @@ TEST(ImageProcIOImage, LoadImage) {
   EXPECT_EQ(image.width(), 512);
   EXPECT_EQ(image.height(), 512);
   EXPECT_EQ(image.channels(), 4);
+
+  Image copy;
+  copy.CopyFrom(image);
+  copy.Write("copy.png");
+
   EXPECT_TRUE(image.Clear(255));
   image.Write("test.png");
   image.Write("test.bmp");
@@ -73,6 +79,46 @@ TEST(ImageProcIOImage, LoadInvalidImage) {
     Image image;
     EXPECT_FALSE(image.Read(filename));
   }
+}
+
+TEST(ImageProcIOImage, SetAndGetPixel) {
+  std::string filename("lena512color.png");
+  Image image;
+  EXPECT_TRUE(image.Read(filename));
+  EXPECT_EQ(image.width(), 512);
+  EXPECT_EQ(image.height(), 512);
+  EXPECT_EQ(image.channels(), 4);
+  unsigned int r = 0;
+  unsigned int g = 0;
+  unsigned int b = 0;
+  unsigned int a = 0;
+  for (int i = 100; i < 200; ++i) {
+    for (int j = 100; j < 200; ++j) {
+      image.SetPixel(j, i, 255, 255, 255, 255);
+      image.GetPixel(j, i, &r, &g, &b, &a);
+      EXPECT_EQ(r, 255);
+      EXPECT_EQ(g, 255);
+      EXPECT_EQ(b, 255);
+      EXPECT_EQ(a, 255);
+    }
+  }
+  image.Write("lena512color_set_pixel.png");
+}
+
+TEST(ImageProcIOImage, Rotate) {
+  std::string filename("lena512color.png");
+  Image image;
+  EXPECT_TRUE(image.Read(filename));
+  EXPECT_EQ(image.width(), 512);
+  EXPECT_EQ(image.height(), 512);
+  EXPECT_EQ(image.channels(), 4);
+
+  Image rotated;
+  image_transform::ImageTransForm::Rotate(image, 30.f, &rotated);
+  rotated.Write("rotated_30_degrees.png");
+
+  image_transform::ImageTransForm::Rotate(image, 10.f, &rotated);
+  rotated.Write("rotated_10_degrees.png");
 }
 
 }  // namespace base
