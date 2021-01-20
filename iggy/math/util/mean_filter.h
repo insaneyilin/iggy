@@ -21,11 +21,22 @@ class MeanFilter {
       : window_size_(window_size), discard_max_min_(discard_max_min) {}
 
   double Update(double measurement);
+  double GetMean() const {
+    return mean_;
+  }
+  double GetStddev() const {
+    return stddev_;
+  }
+
+  std::size_t GetSize() const {
+    return values_.size();
+  }
 
  private:
   void Add(double value);
   void RemoveOldestValue();
-  bool GetMaxMin(double *max_val, double *min_val) const;
+  bool GetMaxMin(double *max_val, double *min_val,
+                 std::size_t *max_time, std::size_t *min_time) const;
   bool ShouldPopOldestCandidate(const std::size_t old_time) const;
 
   MeanFilter() = default;
@@ -36,8 +47,11 @@ class MeanFilter {
   double sum_ = 0.0;
   bool discard_max_min_ = false;
 
+  double mean_ = 0.0;
+  double stddev_ = 0.0;
+
   // front = earliest
-  std::deque<double> values_;
+  std::deque<std::pair<std::size_t, double>> values_;
   // front = min
   std::deque<std::pair<std::size_t, double>> min_candidates_;
   // front = max
