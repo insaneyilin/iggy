@@ -67,6 +67,35 @@ bool FileUtil::Exists(const std::string &path) {
   return stat(path.c_str(), &info) == 0;
 }
 
+bool FileUtil::EnsureDirectory(const std::string& directory_path) {
+  std::string path = directory_path;
+  for (size_t i = 1; i < directory_path.size(); ++i) {
+    if (directory_path[i] == '/') {
+      // Whenever a '/' is encountered, create a temporary view from
+      // the start of the path to the character right before this.
+      path[i] = 0;
+
+      if (mkdir(path.c_str(), S_IRWXU) != 0) {
+        if (errno != EEXIST) {
+          return false;
+        }
+      }
+
+      // Revert the temporary view back to the original.
+      path[i] = '/';
+    }
+  }
+
+  // Make the final (full) directory.
+  if (mkdir(path.c_str(), S_IRWXU) != 0) {
+    if (errno != EEXIST) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 int64_t FileUtil::GetFileSize(const std::string &path) {
   if (!FileUtil::Exists(path)) {
     return -1;

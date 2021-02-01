@@ -50,6 +50,7 @@ class FileUtil {
   static bool GetBaseName(const std::string &path, std::string *basename);
   static bool GetDirName(const std::string &path, std::string *dirname);
   static bool Exists(const std::string &path);
+  static bool EnsureDirectory(const std::string& directory_path);
 
   // get file size in bytes
   static int64_t GetFileSize(const std::string &path);

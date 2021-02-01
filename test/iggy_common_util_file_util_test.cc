@@ -22,6 +22,12 @@ TEST(FileUtil, TestExists) {
   EXPECT_FALSE(FileUtil::Exists(".!@#%$^#non-exist"));
 }
 
+TEST(FileUtil, TestEnsureDirectory) {
+  EXPECT_TRUE(FileUtil::EnsureDirectory("."));
+  EXPECT_TRUE(FileUtil::EnsureDirectory(".."));
+  EXPECT_TRUE(FileUtil::EnsureDirectory("test_dir_for_ensure_dir"));
+}
+
 TEST(FileUtil, TestGetAbsPath) {
   std::string abs_path("");
   EXPECT_TRUE(FileUtil::GetAbsolutePath(".", &abs_path));
