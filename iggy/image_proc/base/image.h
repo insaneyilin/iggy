@@ -2,9 +2,9 @@
 #ifndef IGGY_IMAGE_PROC_BASE_IMAGE_H_
 #define IGGY_IMAGE_PROC_BASE_IMAGE_H_
 
-#include <vector>
 #include <memory>
 #include <string>
+#include <vector>
 
 namespace iggy {
 namespace image_proc {
@@ -22,25 +22,15 @@ class Image {
 
   void CopyFrom(const Image &other);
 
-  int width() const {
-    return width_;
-  }
+  int width() const { return width_; }
 
-  int height() const {
-    return height_;
-  }
+  int height() const { return height_; }
 
-  int channels() const {
-    return channels_;
-  }
+  int channels() const { return channels_; }
 
-  const unsigned char* data() const {
-    return data_;
-  }
+  const unsigned char *data() const { return data_; }
 
-  unsigned char* mutable_data() {
-    return data_;
-  }
+  unsigned char *mutable_data() { return data_; }
 
   bool Read(const std::string &filename);
   bool Write(const std::string &filename);
@@ -48,14 +38,16 @@ class Image {
   bool Clear(unsigned int value);
   bool Clear(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
 
-  bool SetPixel(int x, int y,
-                unsigned int r, unsigned int g, unsigned int b, unsigned int a);
-  bool GetPixel(int x, int y,
-                unsigned int *r, unsigned int *g, unsigned int *b,
+  bool SetPixel(int x, int y, unsigned int r, unsigned int g, unsigned int b,
+                unsigned int a);
+  bool GetPixel(int x, int y, unsigned int *r, unsigned int *g, unsigned int *b,
                 unsigned int *a) const;
 
  private:
-  unsigned char* data_ = nullptr;
+  void ClearData();
+
+ private:
+  unsigned char *data_ = nullptr;
   int width_ = 0;
   int height_ = 0;
   int channels_ = 0;

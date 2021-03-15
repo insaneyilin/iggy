@@ -10,8 +10,7 @@ namespace iggy {
 namespace image_proc {
 namespace image_transform {
 
-void ImageTransForm::Rotate(const base::Image &in_image,
-                            float degrees,
+void ImageTransForm::Rotate(const base::Image &in_image, float degrees,
                             base::Image *out_image) {
   out_image->CopyFrom(in_image);
   out_image->Clear(255);
@@ -40,8 +39,6 @@ void ImageTransForm::Rotate(const base::Image &in_image,
 
   int w = maxx - minx;
   int h = maxy - miny;
-  out_image->Reset(w, h, in_image.channels());
-  out_image->Clear(255);
 
   // Now do the actual rotating - a pixel at a time
   // Use reverse mapping to avoid 'holes'
@@ -56,6 +53,10 @@ void ImageTransForm::Rotate(const base::Image &in_image,
       int src_y = static_cast<int>(y * cosine - x * sine);
       if (src_x < 0 || src_x >= image_width || src_y < 0 ||
           src_y >= image_height) {
+        continue;
+      }
+      // NOTE: do not forget to check dest (x, y)!!!
+      if (x < 0 || x >= image_width || y < 0 || y >= image_height) {
         continue;
       }
       in_image.GetPixel(src_x, src_y, &r, &g, &b, &a);

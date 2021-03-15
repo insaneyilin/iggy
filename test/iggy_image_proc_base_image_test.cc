@@ -3,9 +3,8 @@
 #include <string>
 #include <vector>
 
-#include "gtest/gtest.h"
 #include "gmock/gmock.h"
-
+#include "gtest/gtest.h"
 #include "iggy/image_proc/base/image.h"
 #include "iggy/image_proc/image_transform/image_transform.h"
 
