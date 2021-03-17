@@ -37,6 +37,14 @@ TEST(StringUtilTest, SplitTest) {
   };
   StringUtil::Split(str3, ";;", &terms3);
   EXPECT_THAT(terms3, ::testing::ContainerEq(gt_terms3));
+
+  std::string str4 = "location:(0,0,0.00);do=0;error=0";
+  std::vector<std::string> terms4;
+  std::vector<std::string> gt_terms4 = {
+    "location:(0,0,0.00);do=0;", "0"
+  };
+  StringUtil::Split(str4, "error=", &terms4);
+  EXPECT_THAT(terms4, ::testing::ContainerEq(gt_terms4));
 }
 
 TEST(StringUtilTest, TrimTest) {

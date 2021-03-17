@@ -23,12 +23,12 @@ void StringUtil::Split(const std::string &str, const std::string &delim,
   std::vector<std::string> *terms) {
   terms->clear();
   std::string::size_type last_idx = str.find_first_not_of(delim, 0);
-  std::string::size_type idx = str.find_first_of(delim, last_idx);
+  std::string::size_type idx = str.find(delim, last_idx);
 
   while (std::string::npos != idx || std::string::npos != last_idx) {
     terms->push_back(str.substr(last_idx, idx - last_idx));
     last_idx = str.find_first_not_of(delim, idx);
-    idx = str.find_first_of(delim, last_idx);
+    idx = str.find(delim, last_idx);
   }
 }
 
