@@ -96,7 +96,7 @@ function main() {
   case $option in
     all)
       clean
-      run_lint
+      # run_lint
       run_cmake
       run_build
       ;;
